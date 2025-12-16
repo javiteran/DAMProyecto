@@ -1,5 +1,5 @@
 Screens:
-  DetailScreen1:
+  DetalleIncidencia:
     Properties:
       ImagePosition: =ImagePosition.Center
       LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
@@ -19,7 +19,7 @@ Screens:
             Color: =RGBA(255, 255, 255, 1)
             Height: =88
             Icon: =Icon.ChevronLeft
-            OnSelect: =Navigate(BrowseScreen1, ScreenTransition.None)
+            OnSelect: =Navigate(PantallaPrincipal, ScreenTransition.None)
             PaddingBottom: =24
             PaddingLeft: =24
             PaddingRight: =24
@@ -37,7 +37,7 @@ Screens:
             DisplayMode: =If(DataSourceInfo([@'Incidencias Informáticas'], DataSourceInfo.EditPermission), DisplayMode.Edit, DisplayMode.Disabled)
             Height: =88
             Icon: =Icon.Edit
-            OnSelect: =EditForm(EditForm1);Navigate(EditScreen1, ScreenTransition.None)
+            OnSelect: =EditForm(FormularioEdicionInc);Navigate(EdicionIncidencia, ScreenTransition.None)
             PaddingBottom: =24
             PaddingLeft: =24
             PaddingRight: =24
@@ -53,10 +53,10 @@ Screens:
             AccessibleLabel: =Self.Tooltip
             BorderColor: =RGBA(0, 18, 107, 1)
             Color: =RGBA(255, 255, 255, 1)
-            DisplayMode: =If(!IsBlank(BrowseGallery1.Selected) && DataSourceInfo([@'Incidencias Informáticas'], DataSourceInfo.DeletePermission), DisplayMode.Edit, DisplayMode.Disabled)
+            DisplayMode: =If(!IsBlank(GaleriaInc.Selected) && DataSourceInfo([@'Incidencias Informáticas'], DataSourceInfo.DeletePermission), DisplayMode.Edit, DisplayMode.Disabled)
             Height: =88
             Icon: =Icon.Trash
-            OnSelect: =Remove([@'Incidencias Informáticas'], BrowseGallery1.Selected); If (IsEmpty(Errors([@'Incidencias Informáticas'], BrowseGallery1.Selected)), Back())
+            OnSelect: =Remove([@'Incidencias Informáticas'], GaleriaInc.Selected); If (IsEmpty(Errors([@'Incidencias Informáticas'], GaleriaInc.Selected)), Back())
             PaddingBottom: =24
             PaddingLeft: =24
             PaddingRight: =24
@@ -78,14 +78,14 @@ Screens:
             Width: =Parent.Width - Self.X - IconDelete1.Width - IconEdit1.Width
             Wrap: =false
             X: =80
-      - DetailForm1:
+      - FormularioDetalleInc:
           Control: FormViewer@2.3.4
           Layout: Vertical
           Properties:
             BorderColor: =RGBA(54, 176, 75, 1)
             DataSource: =[@'Incidencias Informáticas']
-            Height: =Parent.Height - DetailForm1.Y
-            Item: =BrowseGallery1.Selected
+            Height: =Parent.Height - FormularioDetalleInc.Y
+            Item: =GaleriaInc.Selected
             Width: =Parent.Width
             Y: =RectQuickActionBar2.Y + RectQuickActionBar2.Height
           Children:
