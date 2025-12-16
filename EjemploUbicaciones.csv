@@ -1,0 +1,61 @@
+﻿Id;Title;UbicacionCompleta
+1;Aula102;Aula 102
+2;Aula103;Aula 103
+3;Aula104;Aula 104
+4;Aula105;Aula 105
+5;Aula106;Aula 106
+6;Aula107;Aula 107
+7;Aula108;Aula 108
+8;Aula109;Aula 109
+9;Aula202;Aula 202
+10;Aula203;Aula 203
+11;Aula204;Aula 204
+12;Aula205;Aula 205
+13;AulaAdministra;Aula Administrativo
+14;AulaATENEA;Aula ATENEA
+15;AulaGestion;Aula Gestión. 206. Azúl
+16;AulaINFO;Aula INFO
+17;AulaMusica;Aula Música
+18;AulaTIC;Aula TIC
+19;Biblioteca;Biblioteca
+20;CPD;CPD
+21;Dirección;Dirección
+22;DptoAL;Departamento de Audición y Lenguaje
+23;DptoCiencias;Departamento de Ciencias
+24;DptoFolFilLat;Departamento de FOL, Filosofía y Latín
+25;DptoGeHRel;Departamento de Geografía e Historia y Religión
+26;DptoIdiomas;Departamento de Idiomas
+27;DptoImagen;Departamento de Imagen Personal
+28;DptoInfoAdmin;Departamento de Informática y Administrativo
+29;DptoLenLit;Departamento de Lengua y Literatura
+30;DptoOrientación;Departamento de Orientación
+31;DptoTecDib;Departamento de Tecnología y Dibujo
+32;Gimnasio;Gimnasio
+33;Jefatura;Jefatura de Estudios
+34;LabCiencia;Laboratorio Ciencias
+35;LabFisQui;Laboratorio Física y Química
+36;PasilloEdTIC;Pasillo Edificio TIC
+37;Prestado;Prestado y llevado a casa
+38;SalaProfesores;Sala Informática de Profesores
+39;SalónActos;Salón de Actos
+40;Secretaría;Secretaría
+41;Taller1Estetica;Taller 1 Estética. Edif. Anexo Planta1
+42;Taller2Estetica;Taller 2 Estética. Edif. Anexo Planta1
+43;TallerA2Estetic;Taller A2 Estética. Edif. Anexo Planta2 centro
+44;TallerDibujo;Taller Dibujo. Edif. Anexo Planta2 izquierda
+45;TallerH;Taller Habilidades. 2ªP
+46;TallerIdiomas;Taller de Idiomas
+47;TallerTecno;Taller de Tecnología
+48;Pasillo0Tecno;Pasillo P0 del Taller de Tecnología
+49;Pasillo0Direc;Pasillo P0 del Dirección
+50;Pasillo1Baños;Pasillo P1 Baños Alumnos
+51;Pasillo1Jefat;Pasillo P1 Jefatura de Estudios
+52;Pasillo2Ciclos;Pasillo P2 Ciclos Info/Admin
+53;Pasillo2Biblio;Pasillo P2 Biblioteca
+54;PasilloTic;Pasillo del Edificio TIC
+55;TallerPeluque;Taller Peluquería. Edif. Anexo Planta2 derecha
+56;TallerPlastica;
+57;Aula110;Aula 110
+58;DespachoTIC;Despacho TIC junto al aula TIC
+59;00CualquierUbicacion;00Cualquier Ubicación
+60;Compensatoria;Aula Compensatoria. 2ª Planta. Al lado de Atenea
