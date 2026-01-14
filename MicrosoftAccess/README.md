@@ -31,6 +31,12 @@ Subformulario asociado a `frm_IncUbicaciones` que muestra las incidencias ocurri
 #### `frm_sql_FaltanDatos.vba`
 Formulario asociado a la consulta `sql_FaltanDatos` para visualizar y gestionar incidencias con datos incompletos.
 
+#### `frm_IncidenciasInformaticas_ALTA.vba`
+Formulario para la creación y registro de nuevas incidencias informáticas en el sistema.
+
+#### `fmr_IncidenciasInformaticas_NOCERRADAS.vba`
+Formulario para visualizar y gestionar incidencias informáticas que se encuentran abiertas (no cerradas). Permite un seguimiento rápido de los casos pendientes.
+
 ### Informes (inf_)
 
 #### `inf_IncTiposCompleto.vba`
@@ -56,6 +62,9 @@ Consulta tipo "crear tabla" para la tabla de auditoría de incidencias.
 
 #### `sql_tbl_IncidenciasInformaticas.vba`
 Consulta tipo "crear tabla" principal que define la estructura de la tabla de incidencias informáticas con todos sus campos.
+
+#### `sql_IncidenciasInformaticas_NOCERRADAS.vba`
+Consulta que selecciona todas las incidencias informáticas que están abiertas (no cerradas), útil para reportes de incidencias pendientes.
 
 ### Módulos (mod_)
 
@@ -95,6 +104,8 @@ Base de Datos Access
 ├── Formularios
 │   ├── frm_0Principal (Menú principal)
 │   ├── frm_ExportarImportar (Gestión de exportación/importación)
+│   ├── frm_IncidenciasInformaticas_ALTA (Crear nuevas incidencias)
+│   ├── fmr_IncidenciasInformaticas_NOCERRADAS (Gestión de incidencias abiertas)
 │   ├── frm_IncTipos + frm_IncTiposIncidenciasSub
 │   ├── frm_IncUbicaciones + frm_IncUbicacionesIncidenciasSub
 │   └── frm_sql_FaltanDatos (Visualización de datos incompletos)
@@ -105,6 +116,7 @@ Base de Datos Access
 │
 ├── Consultas SQL
 │   ├── sql_FaltanDatos (Identificar incidencias incompletas)
+│   ├── sql_IncidenciasInformaticas_NOCERRADAS (Mostrar incidencias abiertas)
 │   ├── sql_tbl_IncAsignadoA (Crear tabla técnicos)
 │   ├── sql_tbl_IncAuditoria (Crear tabla auditoría)
 │   └── sql_tbl_IncidenciasInformaticas (Crear tabla principal)
