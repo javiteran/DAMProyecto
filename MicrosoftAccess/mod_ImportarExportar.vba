@@ -1,9 +1,6 @@
 Option Compare Database
 Option Explicit
 
-'Public Const Ruta As String = "W:\Educación\DistanciaAGL\Proyecto\DAMProyecto\MicrosoftAccess\"
-'Public Const Ruta As String = "D:\Educación\DistanciaAGL\Proyecto\Fase4\Codigo\"
-
 'Exportar todos los objetos Access para poder hacer versionado con GIT
 Public Sub ExportarObjetosAccess(Ruta As String)
     On Error GoTo Err_Global
@@ -29,21 +26,22 @@ Public Sub ExportarObjetosAccess(Ruta As String)
         'ConvertUTF16ToUTF8 Ruta & obj.Name & ".vba"
     Next obj
     
-    ' Exportar módulos
+    ' Exportar modulos
     For Each obj In CurrentProject.AllModules
-        Debug.Print "Exportando informe: " & obj.Name
+        Debug.Print "Exportando modulo: " & obj.Name
         SaveAsText acModule, obj.Name, Ruta & obj.Name & ".vba"
         'ConvertUTF16ToUTF8 Ruta & obj.Name & ".vba"
     Next obj
     
     For Each qdf In CurrentDb.QueryDefs
         If Left(qdf.Name, 1) <> "~" And Left(qdf.Name, 4) <> "MSys" Then
+            Debug.Print "Exportando consulta: " & qdf.Name
             Application.SaveAsText acQuery, qdf.Name, Ruta & qdf.Name & ".vba"
             'ConvertUTF16ToUTF8 Ruta & qdf.Name & ".vba"
         End If
     Next qdf
     
-    MsgBox "Exportación completada", vbInformation
+    MsgBox "Exportacion completada", vbInformation
 
 Err_Global:
     MsgBox "Error: " & Err.Description, vbCritical
@@ -80,11 +78,11 @@ Sub ImportarObjetosAccess(Ruta As String)
         ElseIf Left(strNombre, 4) = "mod_" Then
             Application.LoadFromText acModule, strNombre, Ruta & strArchivo
         Else
-            ' Caso opcional: archivos que no cumplen el patrón
+            ' Caso opcional: archivos que no cumplen el patrï¿½n
             GoTo SiguienteArchivo
         End If
 
-        ' Verificar si hubo error en la carga de este archivo específico
+        ' Verificar si hubo error en la carga de este archivo especï¿½fico
         If Err.Number <> 0 Then
             intContadorError = intContadorError + 1
             strErrores = strErrores & "- " & strArchivo & " (Error: " & Err.Description & ")" & vbCrLf
@@ -185,7 +183,7 @@ Sub ConvertirTablaVinculadaEnLocal(NombreTabla As String)
 
     ' Comprobar que es una tabla vinculada
     If td.Connect = "" Then
-        MsgBox "La tabla no está vinculada", vbExclamation
+        MsgBox "La tabla no estÃ¡ vinculada", vbExclamation
         Exit Sub
     End If
     stringSQL = "SELECT * INTO " & NombreTabla & "_Local FROM [" & NombreTabla & "]"

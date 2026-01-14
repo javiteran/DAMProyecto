@@ -168,17 +168,139 @@ Los archivos en esta carpeta están bajo control de versiones Git para:
 4. Hacer commit de los cambios en Git
 5. Para restaurar: clonar repositorio y ejecutar `mod_ImportarExportar.ImportarObjetosAccess(Ruta)`
 
-### Archivos duplicados en la raíz del proyecto
-
-En el directorio raíz del proyecto también existen copias de algunos archivos con el prefijo `MicrosoftAccess`:
-- `MicrosoftAccessfrm_*.txt`
-- `MicrosoftAccessinf_*.txt`
-- `MicrosoftAccessmod_*.txt`
-
-**Nota**: Los archivos definitivos y actualizados están en la carpeta `MicrosoftAccess/` con extensión `.vba`.
-
 ## 📚 Recursos Adicionales
 
 - [Documentación oficial de Microsoft Access](https://support.microsoft.com/access)
 - Ver `README.md` principal del proyecto para información completa del sistema
 - Ver carpeta `PowerApps/` para componentes de aplicación móvil
+
+## 🟩 Ejemplos de Código VBA
+
+### Exportar todos los objetos Access para versionado con GIT
+
+```vb
+Public Sub ExportarObjetosAccess(Ruta As String)
+    On Error GoTo Err_Global
+    
+    Dim obj As AccessObject
+    Dim qdf As DAO.QueryDef
+    
+    ' Crear directorio si no existe
+    If Dir(Ruta, vbDirectory) = "" Then
+        MkDir Ruta
+    End If
+       
+    ' Exportar formularios
+    For Each obj In CurrentProject.AllForms
+        Debug.Print "Exportando formulario: " & obj.Name
+        SaveAsText acForm, obj.Name, Ruta & obj.Name & ".vba"
+    Next obj
+    
+    ' Exportar informes
+    For Each obj In CurrentProject.AllReports
+        Debug.Print "Exportando informe: " & obj.Name
+        SaveAsText acReport, obj.Name, Ruta & obj.Name & ".vba"
+    Next obj
+    
+    ' Exportar módulos
+    For Each obj In CurrentProject.AllModules
+        Debug.Print "Exportando módulo: " & obj.Name
+        SaveAsText acModule, obj.Name, Ruta & obj.Name & ".vba"
+    Next obj
+    
+    ' Exportar consultas (excluyendo las del sistema)
+    For Each qdf In CurrentDb.QueryDefs
+        If Left(qdf.Name, 1) <> "~" And Left(qdf.Name, 4) <> "MSys" Then
+            Debug.Print "Exportando consulta: " & qdf.Name
+            Application.SaveAsText acQuery, qdf.Name, Ruta & qdf.Name & ".vba"
+        End If
+    Next qdf
+    
+    MsgBox "Exportación completada", vbInformation
+
+Err_Global:
+    MsgBox "Error: " & Err.Description, vbCritical
+End Sub
+```
+
+### Importar todos los objetos Access desde archivos VBA
+
+```vb
+Public Sub ImportarObjetosAccess(Ruta As String)
+    On Error GoTo Err_Global
+    
+    Dim strArchivo As String, strNombre As String
+    Dim intContadorOK As Integer: intContadorOK = 0
+    Dim intContadorError As Integer: intContadorError = 0
+    Dim strErrores As String
+    
+    ' Validar si la carpeta existe
+    If Dir(Ruta, vbDirectory) = "" Then
+        MsgBox "La ruta especificada no existe.", vbCritical
+        Exit Sub
+    End If
+
+    strArchivo = Dir(Ruta & "*.vba")
+
+    Do While strArchivo <> ""
+        strNombre = Replace(strArchivo, ".vba", "")
+        
+        ' Manejador de errores local para no detener el bucle
+        On Error Resume Next
+        
+        ' Importar según el prefijo del nombre
+        If Left(strNombre, 4) = "frm_" Then
+            Application.LoadFromText acForm, strNombre, Ruta & strArchivo
+        ElseIf Left(strNombre, 4) = "inf_" Then
+            Application.LoadFromText acReport, strNombre, Ruta & strArchivo
+        ElseIf Left(strNombre, 4) = "mod_" Then
+            Application.LoadFromText acModule, strNombre, Ruta & strArchivo
+        ElseIf Left(strNombre, 4) = "sql_" Then
+            Application.LoadFromText acQuery, strNombre, Ruta & strArchivo
+        Else
+            GoTo SiguienteArchivo
+        End If
+
+        ' Verificar si hubo error en la carga
+        If Err.Number <> 0 Then
+            intContadorError = intContadorError + 1
+            strErrores = strErrores & "- " & strArchivo & _
+                        " (Error: " & Err.Description & ")" & vbCrLf
+            Err.Clear
+        Else
+            intContadorOK = intContadorOK + 1
+        End If
+        
+        On Error GoTo Err_Global
+        
+SiguienteArchivo:
+        strArchivo = Dir()
+    Loop
+
+    ' Informe final
+    MsgBox "Importación completada:" & vbCrLf & _
+           "✓ Correctos: " & intContadorOK & vbCrLf & _
+           "✗ Errores: " & intContadorError & vbCrLf & vbCrLf & _
+           IIf(strErrores <> "", "Detalles de errores:" & vbCrLf & strErrores, ""), _
+           IIf(intContadorError = 0, vbInformation, vbExclamation)
+    
+    Exit Sub
+
+Err_Global:
+    MsgBox "Error general: " & Err.Description, vbCritical
+End Sub
+```
+
+### Uso de las funciones
+
+```vb
+' Exportar todos los objetos a la carpeta MicrosoftAccess
+Call ExportarObjetosAccess("C:\Users\usuario\Documents\GitHub\DAMProyecto\MicrosoftAccess\")
+
+' Importar todos los objetos desde la carpeta MicrosoftAccess
+Call ImportarObjetosAccess("C:\Users\usuario\Documents\GitHub\DAMProyecto\MicrosoftAccess\")
+```
+
+---
+
+**Última actualización:** Enero 2026
