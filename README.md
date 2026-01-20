@@ -1,247 +1,140 @@
 # DAM Proyecto - Sistema de Gestión de Incidencias Informáticas
 
-Proyecto de Desarrollo de Aplicaciones Multiplataforma para la gestión de incidencias informáticas en un centro educativo mediante SharePoint Online.
+Proyecto de **Desarrollo de Aplicaciones Multiplataforma (DAM)** que implementa un completo sistema de gestión de incidencias informáticas para un centro educativo utilizando tecnologías de Microsoft 365.
 
-## 📋 Descripción
+## 📋 Descripción General
 
-Este proyecto permite crear y gestionar un sistema de incidencias informáticas utilizando SharePoint Online (Microsoft 365) mediante PowerShell y el módulo PnP. El sistema incluye la creación automatizada de listas, campos personalizados y la importación masiva de datos desde archivos CSV utilizando varias listas de Sharepoint para ello.
+Este proyecto proporciona una solución integral para el registro, seguimiento y gestión de incidencias informáticas. El sistema permite crear, editar, visualizar y analizar incidencias, así como organizarlas por tipos, ubicaciones y técnicos asignados.
 
-## 🗂️ Estructura del Proyecto
+## 📁 Estructura del Proyecto
 
-### Scripts PowerShell
+El proyecto se divide en tres módulos principales:
 
-#### 1. `00IncidenciasInformaticasOffice365.ps1`
+### 1. **Powershell/** 🔧
+**Scripts de Administración y Automatización**
 
-Script principal que crea toda la estructura de listas en SharePoint Online:
+Contiene scripts PowerShell para crear y gestionar la infraestructura en SharePoint Online. Incluye:
 
-- **IncTecnico**: Lista de técnicos asignados
-- **IncUbicaciones**: Lista de ubicaciones del centro
-- **IncTipos**: Lista de tipos de incidencias
-- **IncInformaticas**: Lista principal de incidencias informáticas
+- **00IncidenciasInformaticasOffice365.ps1**: Script principal que crea toda la estructura de listas en SharePoint (técnicos, ubicaciones, tipos de incidencias e incidencias)
+- **EjemploImportaDatos.ps1**: Script para importar datos masivamente desde archivos CSV
+- **Archivos CSV de ejemplo**: Datos de prueba para ubicaciones e incidencias
 
-**Características:**
+**Características**:
+- Creación automatizada de listas personalizadas
+- Campos personalizados con validaciones
+- Relaciones entre listas mediante Lookup
+- Campos calculados automáticos
+- Importación masiva de datos con manejo de fechas
 
-- Crea listas con campos personalizados (texto, fecha, lookup, calculados, etc.)
-- Establece relaciones entre listas mediante campos Lookup
-- Configura campos calculados (ej: cálculo automático del curso escolar)
-- Define valores por defecto y descripciones para los campos
+**Uso**: Configuración inicial, mantenimiento y administración de la infraestructura en Office 365. Solo para personal TIC.
 
-#### 2. `EjemploImportaDatos.ps1`
+**Acceso por usuarios**: Las listas de SharePoint pueden ser accedidas directamente o a través de Microsoft Forms para entrada de datos.
 
-Script para importar datos desde archivos CSV a las listas de SharePoint.
-Script de ejemplo simplificado para importar datos de prueba desde archivos CSV de ejemplo.
+---
 
-**Características:**
+### 2. **PowerApps/** 📱
+**Aplicación Multiplataforma en la Nube**
 
-- Importa ubicaciones desde `EjemploUbicaciones.csv`
-- Importa incidencias desde `EjemploIncidenciasInformaticas.csv`
-- Gestiona conversión de fechas con formato español (dd/MM/yyyy)
-- Soporta múltiples formatos de fecha: `dd/MM/yyyy`, `d/M/yyyy`, `dd-MM-yyyy`, `d-M-yyyy`
+Contiene los archivos YAML que definen las pantallas de la aplicación PowerApps integrada con SharePoint Online. Incluye:
 
-### Archivos de Datos
+- **PantallaPrincipal**: Galería de incidencias con búsqueda, filtrado y ordenamiento
+- **DetalleIncidencia**: Visualización completa de una incidencia individual
+- **EdicionIncidencia**: Formulario para crear y editar incidencias
 
-#### `EjemploUbicaciones.csv`
+**Características**:
+- Interfaz responsive optimizada para escritorio, tablet y móvil
+- Integración con SharePoint Online para almacenamiento de datos
+- Validación de campos obligatorios
+- Sistema de estados con códigos de color
+- Navegación intuitiva entre pantallas
 
-Archivo CSV con ubicaciones del centro educativo (62 ubicaciones):
+**Uso**: Opción principal para usuarios finales. Aplicación web moderna accesible desde cualquier dispositivo con navegador.
 
-- Aulas (102-109, 202-205)
-- Departamentos (Ciencias, Informática, Idiomas, etc.)
-- Espacios comunes (Biblioteca, Gimnasio, Salón de Actos, etc.)
+**Alternativas de acceso para usuarios**:
+- **SharePoint Lists**: Acceso directo a las listas de incidencias en SharePoint
+- **Microsoft Forms**: Formularios simplificados para entrada rápida de nuevas incidencias
 
-**Formato:**
+---
 
-```csv
-Id;Title;UbicacionCompleta
-1;Aula102;Aula 102
-2;Biblioteca;Biblioteca
+### 3. **MicrosoftAccess/** 📊
+**Sistema de Base de Datos de Escritorio (Solo para Personal TIC)**
+
+Contiene el código exportado de Microsoft Access que implementa la base de datos relacional para la gestión administrativa de incidencias. Incluye:
+
+- **Formularios**: Interfaz de usuario para gestionar tipos de incidencias, ubicaciones y análisis de datos
+- **Informes**: Reportes detallados de incidencias organizadas por tipo, ubicación y técnico
+- **Consultas SQL**: Queries para análisis, auditoría e identificación de registros incompletos
+- **Módulos VBA**: Funciones para exportar e importar automáticamente objetos de Access, permitiendo control de versiones
+
+**Uso**: Herramienta exclusiva para personal TIC. Gestión administrativa, análisis profundo, reportes avanzados y mantenimiento de la base de datos.
+
+---
+
+## 🏗️ Arquitectura General
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                      USUARIOS FINALES                             │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐            │
+│  │   PowerApps  │  │SharePoint    │  │   Forms      │            │
+│  │              │  │   Lists      │  │              │            │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘            │
+└─────────┼──────────────────┼────────────────┼────────────────────┘
+          │                  │                │
+    ┌─────▼──────────────────▼────────────────▼──────────┐
+    │   SharePoint Online / Office 365                   │
+    │ (Listas: Incidencias, Técnicos, Ubicaciones, Tipos)│
+    └──────┬────────────────────────────────────────────┘
+           │
+           │  Sincronización / Consultas
+           │  (Personal TIC)
+           │
+    ┌──────▼──────────────┐        ┌────────────────────┐
+    │ Microsoft Access    │        │  PowerShell Scripts│
+    │ (Análisis, Reports) │        │ (Admin, Automación)│
+    │ (Solo Personal TIC) │        │ (Solo Personal TIC)│
+    └─────────────────────┘        └────────────────────┘
 ```
 
-#### `EjemploIncidenciasInformaticas.csv`
+## 🔄 Flujo de Datos
 
-Archivo CSV con incidencias informáticas de ejemplo (278 registros):
+### Para Usuarios Finales:
+1. **Entrada de datos** → PowerApps, SharePoint Lists, o Microsoft Forms → SharePoint Online
+2. **Visualización** → PowerApps, SharePoint Lists
 
-**Campos incluidos:**
-
-- `Id`: Identificador único
-- `Title`: Asunto/título de la incidencia
-- `DescripIncidencia`: Descripción detallada
-- `FechaIncidencia`: Fecha de la incidencia (formato dd/MM/yyyy)
-- `UbicacionId`: ID de la ubicación
-- `Prioridad`: 1-Media, 2-Alta, 3-Baja
-- `NumSerieConsejeria`: Número de serie del equipo
-- `IncidenciaAsignadaAId`: ID del técnico asignado
-- `TipoIncidenciaId`: ID del tipo de incidencia
-- `Estado`: Nuevo, En Progreso, En Espera, Cerrado
-- `FechaSolucion`: Fecha de resolución
-- `DescripSolucion`: Descripción de la solución aplicada
-- `Duracion`: Tiempo en minutos
-- `LlamadaServicioTecnico`: VERDADERO/FALSO
-- `FechaLlamadaServTecnico`: Fecha de llamada al servicio técnico
+### Para Personal TIC:
+1. **Configuración inicial** → PowerShell Scripts → SharePoint Online (Setup de listas)
+2. **Administración** → Microsoft Access (análisis, reportes avanzados, mantenimiento)
+3. **Importación masiva** → PowerShell Scripts → SharePoint Online (carga de datos)
 
 ## 🚀 Requisitos Previos
 
-### Software Necesario
-
-- PowerShell 5.1 o superior
-- Módulo SharePointPnPPowerShellOnline
-
-### Instalación del Módulo PnP
-
-```powershell
-Install-Module SharePointPnPPowerShellOnline
-```
+### Software
+- **PowerShell** 5.1 o superior
+- **Microsoft Access** 2016 o posterior
+- **Navegador moderno** (Chrome, Edge, Safari)
+- **Módulo PnP PowerShell**: `Install-Module SharePointPnPPowerShellOnline`
 
 ### Permisos
-
-- Acceso a SharePoint Online
+- Acceso a **SharePoint Online**
 - Permisos de administrador en el sitio de SharePoint
-- Credenciales de Office 365
+- Credenciales de **Office 365**
 
-## 📦 Configuración
+## 📚 Documentación Adicional
 
-### URL del Sitio SharePoint
+Para información detallada sobre cada módulo, consulta:
+- [Powershell/README.md](Powershell/README.md) - Documentación de scripts PowerShell
+- [PowerApps/README.md](PowerApps/README.md) - Documentación de la aplicación PowerApps
+- [MicrosoftAccess/README.md](MicrosoftAccess/README.md) - Documentación de la base de datos Access
 
-Todos los scripts están configurados para conectarse a:
+## 📝 Licencia
 
-```html
-https://educantabria.sharepoint.com/sites/IESAlisalDatos/DAMProyecto
-```
+Proyecto académico de DAM
 
-Para usar en tu propio sitio, modifica esta URL en los scripts.
+## 👤 Autor
 
-## 🔧 Uso
+Javier Terán
 
-### 1. Crear la Estructura de Listas
+---
 
-Ejecuta el script principal para crear todas las listas y campos:
-
-```powershell
-.\00IncidenciasInformaticasOffice365.ps1
-```
-
-Este script:
-
-1. Solicita credenciales de Office 365
-2. Se conecta al sitio de SharePoint
-3. Crea las listas: IncTecnico, IncUbicaciones, IncTipos, IncInformaticas
-4. Añade campos personalizados a cada lista
-5. Configura relaciones entre listas
-6. Establece valores por defecto
-
-### 2. Importar Datos desde CSV
-
-Después de crear la estructura, importa los datos:
-
-```powershell
-.\EjemploImportaDatos.ps1
-```
-
-## 📊 Estructura de Datos
-
-### Lista: Incidencias Informáticas
-
-| Campo | Tipo | Descripción | Obligatorio |
-|-------|------|-------------|-------------|
-| Asunto (Title) | Texto | Descripción corta de la incidencia | Sí |
-| Descripción Incidencia | Texto largo | Descripción detallada | Sí |
-| Fecha Incidencia | Fecha | Fecha de la incidencia | Sí |
-| Ubicación | Lookup | Lugar donde ocurre la incidencia | Sí |
-| Prioridad | Opción | 1-Media, 2-Alta, 3-Baja | No |
-| Nº Serie Consejería | Texto | Número de serie del equipo | No |
-| Incidencia Asignada A | Lookup | Técnico asignado | No |
-| Tipo Incidencia | Lookup | Categoría de la incidencia | No |
-| Estado | Opción | Nuevo, En Progreso, En Espera, Cerrado | No |
-| Fecha Solución | Fecha | Fecha de resolución | No |
-| Descripción Solución | Texto largo | Solución aplicada | No |
-| Duración (min) | Número | Tiempo de resolución en minutos | No |
-| Llamada Servicio Técnico | Sí/No | Indica si se llamó al servicio técnico | No |
-| Fecha Llamada | Fecha | Fecha de llamada al servicio técnico | No |
-| Curso | Calculado | Curso escolar (calculado automáticamente) | - |
-
-### Campo Calculado: Curso
-
-El campo "Curso" se calcula automáticamente según la fecha de la incidencia:
-
-- Si la incidencia es antes de septiembre: año anterior/año actual
-- Si la incidencia es desde septiembre: año actual/año siguiente
-
-**Fórmula:**
-
-```powershell
-=IF(MONTH([Fecha Incidencia])<9,YEAR([Fecha Incidencia])-1&"/"&YEAR([Fecha Incidencia]),YEAR([Fecha Incidencia])&"/"&YEAR([Fecha Incidencia])+1)
-```
-
-## 🔍 Formatos de Fecha
-
-Los scripts aceptan fechas en formato español con los siguientes patrones:
-
-- `dd/MM/yyyy` (ejemplo: 08/02/2018)
-- `d/M/yyyy` (ejemplo: 8/2/2018)
-- `dd-MM-yyyy` (ejemplo: 08-02-2018)
-- `d-M-yyyy` (ejemplo: 8-2-2018)
-
-## 📝 Ejemplos de Uso
-
-### Conectarse a SharePoint
-
-```powershell
-$credential = Get-Credential
-Connect-PnPOnline -Url https://educantabria.sharepoint.com/sites/IESAlisalDatos/DAMProyecto -Credential $credential
-```
-
-### Importar Ubicaciones
-
-```powershell
-$QueLista = "IncUbicaciones"
-$ejemplo = Import-Csv EjemploUbicaciones.csv -Delimiter ';'
-
-foreach ($fila in $ejemplo) {
-    Add-PnPListItem -List $QueLista -Values @{
-        "Title" = $fila.Title
-        "UbicacionCompleta" = $fila.UbicacionCompleta
-    }
-}
-```
-
-### Importar Incidencias
-
-```powershell
-$QueLista = "IncInformaticas"
-$ejemplo = Import-Csv EjemploIncidenciasInformaticas.csv -Delimiter ';'
-
-foreach ($fila in $ejemplo) {
-    Add-PnPListItem -List $QueLista -Values @{
-        "Title" = $fila.Title
-        "DescripIncidencia" = $fila.DescripIncidencia
-        "FechaIncidencia" = [datetime]::ParseExact($fila.FechaIncidencia,'d/M/yyyy', $null)
-        "Ubicacion" = $fila.UbicacionId
-        "Prioridad" = $fila.Prioridad
-        # ... más campos
-    }
-}
-```
-
-## 🛠️ Solución de Problemas
-
-### Error: "Unable to access the site"
-
-Verifica:
-
-- Que tienes permisos en el sitio de SharePoint
-- Que la URL del sitio es correcta
-- Que tus credenciales de Office 365 son válidas
-
-## 📚 Referencias
-
-- [SharePoint PnP PowerShell](https://docs.microsoft.com/en-us/powershell/module/sharepoint-pnp/)
-- [Trabajar con listas de SharePoint Online usando PnP PowerShell](https://channel9.msdn.com/Blogs/MVP-Azure/Work-with-SharePoint-Online-lists-with-PNP-PowerShell)
-- [Opciones de campos de SharePoint](https://msdn.microsoft.com/en-us/library/office/aa979575.aspx)
-- [Fórmulas de campos calculados](https://msdn.microsoft.com/es-es/library/office/bb862071(v=office.14).aspx)
-
-## 👥 Autor
-
-Proyecto desarrollado por Javier Terán para fines educativos en el contexto del curso de Desarrollo de Aplicaciones Multiplataforma (DAM).
-
-## 📄 Licencia
-
-Este proyecto está diseñado para uso educativo en el contexto de Desarrollo de Aplicaciones Multiplataforma.
+**Última actualización:** Enero 2026
