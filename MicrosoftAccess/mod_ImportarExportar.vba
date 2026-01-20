@@ -9,7 +9,7 @@ Public Sub ExportarObjetosAccess(Ruta As String)
     On Error GoTo Err_Global
     
     Dim obj As AccessObject
-    Dim qdf As DAO.QueryDef
+    Dim qdf As dao.QueryDef
     
     If Dir(Ruta, vbDirectory) = "" Then
         MkDir Ruta
@@ -39,11 +39,13 @@ Public Sub ExportarObjetosAccess(Ruta As String)
     For Each qdf In CurrentDb.QueryDefs
         If Left(qdf.Name, 1) <> "~" And Left(qdf.Name, 4) <> "MSys" Then
             Application.SaveAsText acQuery, qdf.Name, Ruta & qdf.Name & ".vba"
+            Debug.Print "Exportando SQL: " & qdf.Name
             'ConvertUTF16ToUTF8 Ruta & qdf.Name & ".vba"
         End If
     Next qdf
     
     MsgBox "Exportación completada", vbInformation
+    Exit Sub
 
 Err_Global:
     MsgBox "Error: " & Err.Description, vbCritical
@@ -163,8 +165,8 @@ End Sub
 '===================================================================================
 
 Sub ConvertirTodasLasTablasVinculadas()
-    Dim db As DAO.Database
-    Dim td As DAO.TableDef
+    Dim db As dao.Database
+    Dim td As dao.TableDef
 
     Set db = CurrentDb
 
@@ -176,8 +178,8 @@ Sub ConvertirTodasLasTablasVinculadas()
 End Sub
 
 Sub ConvertirTablaVinculadaEnLocal(NombreTabla As String)
-    Dim db As DAO.Database
-    Dim td As DAO.TableDef
+    Dim db As dao.Database
+    Dim td As dao.TableDef
     Dim stringSQL As String
 
     Set db = CurrentDb
