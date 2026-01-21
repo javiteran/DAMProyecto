@@ -1,4 +1,13 @@
-﻿#https://docs.microsoft.com/en-us/powershell/module/sharepoint-pnp/?view=sharepoint-ps
+﻿# Este script de PowerShell se conecta a un sitio de SharePoint Online utilizando PnP PowerShell.
+# Permite gestionar listas y campos en SharePoint, facilitando la manipulación de datos.
+# Se requiere autenticación mediante credenciales para establecer la conexión.
+# Incluye ejemplos de fórmulas para campos calculados en listas de SharePoint.
+# Se proporciona información sobre la instalación de módulos necesarios para su funcionamiento.
+# Este script es útil para administradores y desarrolladores que trabajan con SharePoint.
+# Asegúrate de tener los permisos adecuados para ejecutar este script.
+# Modifica la URL y las credenciales según sea necesario para tu entorno.
+
+#https://docs.microsoft.com/en-us/powershell/module/sharepoint-pnp/?view=sharepoint-ps
 
 #https://channel9.msdn.com/Blogs/MVP-Azure/Work-with-SharePoint-Online-lists-with-PNP-PowerShell
 
