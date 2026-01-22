@@ -78,7 +78,7 @@ Contiene el dashboard de PowerBI para la visualización e análisis avanzado de 
 
 **Uso**: Proporciona una vista estratégica de las incidencias para gerencia y supervisores. Complementa los análisis de Access con visualizaciones modernas.
 
-**Acceso**: [Dashboard de PowerBI - Incidencias Informáticas](https://app.powerbi.com/view?r=eyJrIjoiOThmOGQ1YTQtOTMwYi00M2ViLTg4NzItZTA3ZDI5NWI2MDRhIiwidCI6ImY3NjEzNDhlLTExZDYtNDMzYy05YmQwLTg0YjNiODc4MWJjYSIsImMiOjh9)
+**Acceso**: [Dashboard de PowerBI - Incidencias Informáticas](https://app.powerbi.com/view?r=eyJrIjoiOThmOGQ1YTQtOTMwYi00M2ViLTg4NzItZTE3ZDI5NWI2MDRhIiwidCI6ImY3NjEzNDhlLTExZDYtNDMzYy05YmQwLTg0YjNiODc4MWJjYSIsImMiOjh9)
 
 ---
 
