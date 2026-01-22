@@ -1,9 +1,6 @@
 Option Compare Database
 Option Explicit
 
-'Public Const Ruta As String = "W:\Educación\DistanciaAGL\Proyecto\DAMProyecto\MicrosoftAccess\"
-'Public Const Ruta As String = "D:\Educación\DistanciaAGL\Proyecto\Fase4\Codigo\"
-
 'Exportar todos los objetos Access para poder hacer versionado con GIT
 Public Sub ExportarObjetosAccess(Ruta As String)
     On Error GoTo Err_Global
@@ -14,7 +11,7 @@ Public Sub ExportarObjetosAccess(Ruta As String)
     If Dir(Ruta, vbDirectory) = "" Then
         MkDir Ruta
     End If
-       
+
     ' Exportar formularios
     For Each obj In CurrentProject.AllForms
         Debug.Print "Exportando formulario: " & Ruta & obj.Name
@@ -29,7 +26,7 @@ Public Sub ExportarObjetosAccess(Ruta As String)
         'ConvertUTF16ToUTF8 Ruta & obj.Name & ".vba"
     Next obj
     
-    ' Exportar módulos
+    ' Exportar modulos
     For Each obj In CurrentProject.AllModules
         Debug.Print "Exportando informe: " & Ruta & obj.Name
         SaveAsText acModule, obj.Name, Ruta & obj.Name & ".vba"
@@ -44,7 +41,7 @@ Public Sub ExportarObjetosAccess(Ruta As String)
         End If
     Next qdf
     
-    MsgBox "Exportación completada", vbInformation
+    MsgBox "Exportacion completada", vbInformation
     Exit Sub
 
 Err_Global:
@@ -81,12 +78,14 @@ Sub ImportarObjetosAccess(Ruta As String)
             Application.LoadFromText acReport, strNombre, Ruta & strArchivo
         ElseIf Left(strNombre, 4) = "mod_" Then
             Application.LoadFromText acModule, strNombre, Ruta & strArchivo
+        ElseIf Left(strNombre, 4) = "sql_" Then
+            Application.LoadFromText acQuery, strNombre, Ruta & strArchivo
         Else
-            ' Caso opcional: archivos que no cumplen el patrón
+            ' Caso opcional: archivos que no cumplen el patron
             GoTo SiguienteArchivo
         End If
 
-        ' Verificar si hubo error en la carga de este archivo específico
+        ' Verificar si hubo error en la carga de este archivo especifico
         If Err.Number <> 0 Then
             intContadorError = intContadorError + 1
             strErrores = strErrores & "- " & strArchivo & " (Error: " & Err.Description & ")" & vbCrLf
@@ -103,9 +102,9 @@ SiguienteArchivo:
 
     ' Informe final
     MsgBox "Proceso finalizado." & vbCrLf & _
-           "Exitosos: " & intContadorOK & vbCrLf & _
-           "Errores: " & intContadorError, vbInformation
-           
+            "Exitosos: " & intContadorOK & vbCrLf & _
+            "Errores: " & intContadorError, vbInformation
+
     If strErrores <> "" Then
         Debug.Print "DETALLE DE ERRORES:" & vbCrLf & strErrores
         MsgBox "Hubo errores en algunos archivos. Revisa la ventana Inmediato (Ctrl+G) para ver los detalles.", vbInformation
