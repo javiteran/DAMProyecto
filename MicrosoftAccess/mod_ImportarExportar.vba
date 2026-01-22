@@ -17,21 +17,21 @@ Public Sub ExportarObjetosAccess(Ruta As String)
        
     ' Exportar formularios
     For Each obj In CurrentProject.AllForms
-        Debug.Print "Exportando formulario: " & obj.Name
+        Debug.Print "Exportando formulario: " & Ruta & obj.Name
         SaveAsText acForm, obj.Name, Ruta & obj.Name & ".vba"
         'ConvertUTF16ToUTF8 Ruta & obj.Name & ".vba"
     Next obj
     
     ' Exportar informes
     For Each obj In CurrentProject.AllReports
-        Debug.Print "Exportando informe: " & obj.Name
+        Debug.Print "Exportando informe: " & Ruta & obj.Name
         SaveAsText acReport, obj.Name, Ruta & obj.Name & ".vba"
         'ConvertUTF16ToUTF8 Ruta & obj.Name & ".vba"
     Next obj
     
     ' Exportar módulos
     For Each obj In CurrentProject.AllModules
-        Debug.Print "Exportando informe: " & obj.Name
+        Debug.Print "Exportando informe: " & Ruta & obj.Name
         SaveAsText acModule, obj.Name, Ruta & obj.Name & ".vba"
         'ConvertUTF16ToUTF8 Ruta & obj.Name & ".vba"
     Next obj
@@ -39,7 +39,7 @@ Public Sub ExportarObjetosAccess(Ruta As String)
     For Each qdf In CurrentDb.QueryDefs
         If Left(qdf.Name, 1) <> "~" And Left(qdf.Name, 4) <> "MSys" Then
             Application.SaveAsText acQuery, qdf.Name, Ruta & qdf.Name & ".vba"
-            Debug.Print "Exportando SQL: " & qdf.Name
+            Debug.Print "Exportando SQL: " & Ruta & qdf.Name
             'ConvertUTF16ToUTF8 Ruta & qdf.Name & ".vba"
         End If
     Next qdf
